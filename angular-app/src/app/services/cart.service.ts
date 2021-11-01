@@ -22,10 +22,9 @@ export class CartService {
     console.log(this.cart)
     this.sumPrice += this.ps.getSomeProduct(p_id).price;
     this.ps.getSomeProduct(p_id).quantity -= 1;
-    this.clickcount += 1;
     this.counter = this.cart.length;
-    if(this.clickcount == 5){
-      this.show = !this.show;
+    if(this.cart[p_id].quantity == 0){
+      this.show = !this.show
     }
   }
 
@@ -48,16 +47,14 @@ export class CartService {
 
   delectCart(p_id:number){
     console.log('Delete product id: '+p_id+' to cart');
-    this.cart.pop()
+    this.sumPrice -= this.cart[p_id].price
+    this.cart.splice(p_id,1)
     console.log(this.cart)
-    this.sumPrice -= this.ps.getSomeProduct(p_id).price;
     this.ps.getSomeProduct(p_id).quantity += 1;
-    console.log(this.clickcount)
-    this.clickcount -= 1;
-    if(this.clickcount == 0){
-      this.show = !this.show;
-    }
-    console.log(this.clickcount)
     this.counter = this.cart.length;
+    if(this.cart[p_id].quantity != 0){
+      this.show = !this.show
+    }
+    
   }
 }
